@@ -1,0 +1,22 @@
+#include <LPC213x.h>
+
+void delay(void)
+{
+    unsigned int i;
+    for(i=0;i<500000;i++);
+}
+
+int main(void)
+{
+    int i;
+    IO1DIR |= 0x00FF0000;     // P1.16-P1.23 as output
+    while(1)
+    {
+        for(i=23;i>=16;i--)   // reversed: start at 23, count down to 16
+        {
+            IO1CLR = 0x00FF0000;   // OFF all LEDs
+            IO1SET = (1<<i);       // ON one LED
+            delay();
+        }
+    }
+}
